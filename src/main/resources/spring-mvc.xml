@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+    <!-- 自动扫描使用注解的类所在的包 -->
+    <context:component-scan base-package="com.zq"/>
+
+    <!-- 启用注解 -->
+    <mvc:annotation-driven/>
+
+    <!-- Spring 静态资源处理 -->
+    <!-- 如果没有此代码，访问静态资源的路径全部404，例如引入jquery文件、引入js文件 -->
+    <!-- 在spring-mvc.xml中配置<mvc:default-servlet-handler/>后，会在Spring MVC上下文中定义
+         一个org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler，
+         它会对进入DispatcherServlet的URL进行筛查，如果是静态资源的请求，就将该请求转由Web应用
+         服务器默认的Servlet处理，反之由DispatcherServlet继续处理。一般Web应用服务器默认的Servlet
+         名称是"default"，因此DefaultServletHttpRequestHandler可以找到它。如果你所有的Web应用服务
+         器的默认Servlet名称不是"default"，则需要通过default-servlet-name属性显示指定：
+         <mvc:default-servlet-handler default-servlet-name="所使用的Web服务器默认使用的Servlet名称"/>
+     -->
+    <mvc:default-servlet-handler/>
+
+
+    <!-- 定义跳转的文件的前后缀 ，视图模式配置-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 这里的配置是自动给后面action的方法return的字符串加上前缀和后缀，变成一个可用的url地址 -->
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 默认编码 -->
+        <property name="defaultEncoding" value="utf-8"/>
+        <!-- 文件大小最大值 -->
+        <property name="maxUploadSize" value="10485760000"/>
+        <!-- 内存中的最大值 -->
+        <property name="maxInMemorySize" value="40960"/>
+    </bean>
+</beans>

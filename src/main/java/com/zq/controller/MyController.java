@@ -25,7 +25,7 @@ import java.util.List;
  * 但是在项目中，却建议你严格按照除Component的其余三个注解的含义使用在项目中。这对分层结构的web架构很有好处！！
  */
 
-
+// a
 // 负责注册一个bean到SpringContext
 @Controller
 // 为Controller指定URL请求路径

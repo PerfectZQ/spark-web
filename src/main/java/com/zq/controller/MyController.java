@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-// aaaa
-
 /**
  * Created by zhangqiang on 2016/12/12.
  *
